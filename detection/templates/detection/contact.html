@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Dynamic Vehicle Identification & Tracker{% endblock %}
+
+{% block content %}
+<div class="contact-section text-center mt-5">
+    <h1 class="display-4" style="color: #00ff99;">Contact Us</h1>
+    <p class="lead text-white">We're here to help! Reach out to us with any questions or inquiries.</p>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <!-- Contact Form -->
+            <div class="col-md-8 mb-5">
+                <div class="card bg-dark text-white rounded-4 shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title" style="color: #00ff99;">Get in Touch</h4>
+                        <form action="#" method="POST" class="mt-3">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control rounded-3" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control rounded-3" id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gradient rounded-3 px-5 py-2">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white rounded-4 shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title" style="color: #00ff99;">Contact Information</h4>
+                        <p><strong>Email:</strong> <a href="mailto:support@dvit.com" style="color: #00ff99;">support@dvit.com</a></p>
+                        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                        <p><strong>Address:</strong> 1234 Tech Avenue, Innovation City</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="text-center mt-5">
+            <h4 style="color: #00ff99;">Follow Us</h4>
+            <p class="text-white">Connect with us on social media</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="https://twitter.com" target="_blank" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://youtube.com" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional CSS for styling -->
+<style>
+    /* Contact Section Styling */
+    .contact-section h1 {
+        font-weight: bold;
+    }
+
+    /* Gradient Button Styling */
+    .btn-gradient {
+        background: linear-gradient(to right, #00ff99, #00cc88);
+        border: none;
+        color: white;
+        transition: background 0.3s ease;
+    }
+    .btn-gradient:hover {
+        background: linear-gradient(to right, #00cc88, #00ff99);
+    }
+
+    /* Social Media Icon Styling */
+    .social-icon {
+        font-size: 1.5rem;
+        color: #ffffff;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+    }
+    .social-icon.twitter { background-color: #1DA1F2; }
+    .social-icon.facebook { background-color: #4267B2; }
+    .social-icon.linkedin { background-color: #0077B5; }
+    .social-icon.youtube { background-color: #FF0000; }
+    .social-icon:hover {
+        color: #000;
+        background-color: #fff;
+    }
+
+    /* Form and Card Styling */
+    .form-control {
+        background-color: #333;
+        border: none;
+        color: #fff;
+    }
+    .form-control::placeholder {
+        color: #ccc;
+    }
+    .card-body h4 {
+        color: #00ff99;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+</style>
+{% endblock %}

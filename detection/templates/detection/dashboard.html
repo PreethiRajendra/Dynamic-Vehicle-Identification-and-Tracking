@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-3">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container my-5">
+    <div class="uploaded-images bg-dark p-4 rounded">
+        <h2 class="text-center text-light">Uploaded Images</h2>
+        <table class="table table-dark table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">File</th>
+                    
+                    <th scope="col">Plate Text</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Uploaded At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for video in Upload_History %}
+                    <tr>
+                        <td>{{ video.user.username }}</td> <!-- Display username -->
+                    
+                        <td>video</td>
+                        <td>{{ video.detected_plate_numbers }}</td>
+                        <td>{{ video.detected_states }}</td>
+                        <td>{{ video.upload_date }}</td>
+                    </tr>
+                {% endfor %}
+                {% for image in uploaded_images %}
+                    <tr>
+                        <td>{{ image.user.username }}</td> <!-- Display username -->
+
+                        <td><img src="{{ image.image.url }}" alt="Image" class="img-fluid rounded" style="width: 100px;"></td>
+                        <td>{{ image.plate_text }}</td>
+                        <td>{{ image.state }}</td>
+                        <td>{{ image.uploaded_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<!--
+    <div class="form-container mt-5">
+        <div class="form-box bg-dark p-4 rounded shadow-lg">
+            <h2 class="text-center text-light">Update Profile</h2>
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="profile">
+
+                <div class="mb-3">
+                    <label for="gender" class="form-label text-light">Gender:</label>
+                    <select name="gender" id="gender" class="form-select">
+                        <option value="M" {% if user_profile.gender == 'M' %}selected{% endif %}>Male</option>
+                        <option value="F" {% if user_profile.gender == 'F' %}selected{% endif %}>Female</option>
+                        <option value="T" {% if user_profile.gender == 'T' %}selected{% endif %}>Transgender</option>
+                    </select>
+                    {% if errors.gender %}
+                        <div class="text-danger">{{ errors.gender }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="age" class="form-label text-light">Age:</label>
+                    <input type="number" name="age" id="age" class="form-control" value="{{ user_profile.age }}">
+                    {% if errors.age %}
+                        <div class="text-danger">{{ errors.age }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="height" class="form-label text-light">Height (cm):</label>
+                    <input type="number" name="height" id="height" class="form-control" value="{{ user_profile.height }}">
+                    {% if errors.height %}
+                        <div class="text-danger">{{ errors.height }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="weight" class="form-label text-light">Weight (kg):</label>
+                    <input type="number" name="weight" id="weight" class="form-control" value="{{ user_profile.weight }}">
+                    {% if errors.weight %}
+                        <div class="text-danger">{{ errors.weight }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Update</button>
+            </form>
+        </div>
+    </div>-->
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    background-image: url("{% static 'detection/images/one.png' %}");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+.container {
+    max-width: 1000px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+}
+
+.form-container .form-box {
+    background-color: rgba(25, 25, 25, 0.9);
+    border-radius: 8px;
+}
+
+.form-box h2, .uploaded-images h2 {
+    color: #1e90ff;
+}
+
+.table th, .table td {
+    color: #ccc;
+}
+
+.table thead {
+    background-color: #333;
+}
+
+.form-label {
+    color: #bbb;
+}
+
+.form-control, .form-select {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #1e90ff;
+    border: 1px solid #444;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-color: #1e90ff;
+}
+
+button {
+    background-color: #1e90ff;
+    border: none;
+}
+
+button:hover {
+    background-color: #4169e1;
+}
+</style>
+
+{% endblock %}

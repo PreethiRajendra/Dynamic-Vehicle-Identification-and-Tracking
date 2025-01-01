@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Result Container -->
+<div class="result-container">
+    <div class="result-box">
+        <h1>Vehicle Number Plate Detection</h1>
+        
+        <div class="prediction-box">
+            <p class="prediction-text">{{ prediction }}</p>
+        </div>
+        
+        <a href="{% url 'upload_image' %}" class="btn">Upload Another Image</a>
+    </div>
+</div>
+
+<!-- Custom CSS Styling -->
+<style>
+    /* Global styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-size: cover;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    /* Messages styling */
+    .messages {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    .message {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 5px 0;
+        text-align: center;
+    }
+    .message.success {
+        background-color: rgba(40, 167, 69, 0.8);
+        color: #fff;
+    }
+    .message.error {
+        background-color: rgba(220, 53, 69, 0.8);
+        color: #fff;
+    }
+
+    /* Result Container styling */
+    .result-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1; /* Make the container take up remaining space */
+        width: 100%;
+        padding: 20px;
+    }
+
+    .result-box {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Enhanced Prediction Box styling */
+    .prediction-box {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+    }
+
+    /* Neon Gradient Border with Animation */
+    .prediction-box::before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900, #ff00ff);
+        z-index: -1;
+        background-size: 400% 400%;
+        animation: neonGlow 5s linear infinite;
+    }
+
+    @keyframes neonGlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .prediction-text {
+        font-size: 1.5em; /* Reduced size */
+        color: #ffffff; /* Change to your preferred color */
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Enhanced Button styling */
+    .btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+        background: linear-gradient(135deg, #ff5e62, #ff9966); /* Original orange color */
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1em;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+        background: linear-gradient(135deg, #ff9966, #ff5e62); /* Original orange color */
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        color: white; /* Ensure text color remains white */
+    }
+
+    .btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        color: white; /* Ensure text color remains white */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .result-box {
+            width: 90%;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        .btn {
+            font-size: 1em;
+        }
+    }
+    .navbar{
+        width: 100%;
+    }
+</style>
+
+{% endblock %}

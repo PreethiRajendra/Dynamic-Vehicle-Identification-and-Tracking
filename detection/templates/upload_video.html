@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Upload Form Container -->
+<div class="upload-container">
+    <div class="upload-box">
+        <h1>Upload Video for Vehicle Number Plate Detection</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="video" class="file-label">Select a video:</label>
+            <input type="file" id="video" name="video" class="file-input" accept="video/*" required>
+            <button type="submit" class="upload-submit btn">Upload Video</button>
+        </form>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    /* Global styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-size: cover;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    /* Messages styling */
+    .messages {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    .message {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 5px 0;
+        text-align: center;
+    }
+    .message.success {
+        background-color: rgba(40, 167, 69, 0.8);
+        color: #fff;
+    }
+    .message.error {
+        background-color: rgba(220, 53, 69, 0.8);
+        color: #fff;
+    }
+
+    /* Upload Container Styling */
+    .upload-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1; /* Make the container take up remaining space */
+        width: 100%;
+    }
+
+    .upload-box {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* File input label */
+    .file-label {
+        display: block;
+        font-size: 1.2em;
+        color: #ccc;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    /* File input styling */
+    .file-input {
+        width: 100%;
+        padding: 12px;
+        margin: 12px 0;
+        border: 2px dashed #444;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    .file-input:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    .file-input::file-selector-button {
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #ff5e62, #ff9966); /* Original orange color */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .file-input::file-selector-button:hover {
+        background: linear-gradient(135deg, #ff9966, #ff5e62); /* Original orange color */
+    }
+
+    /* Submit button styling */
+    .upload-submit {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+        background: linear-gradient(135deg, #ff5e62, #ff9966); /* Original orange color */
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: background 0.3s;
+    }
+    .upload-submit:hover {
+        background: linear-gradient(135deg, #ff9966, #ff5e62); /* Original orange color */
+        color: white; /* Ensure text color remains white */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .upload-box {
+            width: 90%;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        .upload-submit {
+            font-size: 1em;
+        }
+    }
+    .navbar{
+        width: 100%;
+    }
+</style>
+
+
+
+{% endblock %}

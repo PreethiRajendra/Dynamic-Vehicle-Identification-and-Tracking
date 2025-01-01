@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-container">
+            <div class="form-box">
+                <h2>Update Profile</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="profile">
+
+                    <div class="form-row">
+                        <label for="gender">Gender:</label>
+                        <select name="gender" id="gender">
+                            <option value="M" {% if user_profile.gender == 'M' %}selected{% endif %}>Male</option>
+                            <option value="F" {% if user_profile.gender == 'F' %}selected{% endif %}>Female</option>
+                            <option value="T" {% if user_profile.gender == 'T' %}selected{% endif %}>Transgender</option>
+                        </select>
+                        {% if errors.gender %}
+                            <p class="error">{{ errors.gender }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <label for="age">Age:</label>
+                        <input type="number" name="age" id="age" value="{{ user_profile.age }}">
+                        {% if errors.age %}
+                            <p class="error">{{ errors.age }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <label for="height">Height (cm):</label>
+                        <input type="number" name="height" id="height" value="{{ user_profile.height }}">
+                        {% if errors.height %}
+                            <p class="error">{{ errors.height }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-row">
+                        <label for="weight">Weight (kg):</label>
+                        <input type="number" name="weight" id="weight" value="{{ user_profile.weight }}">
+                        {% if errors.weight %}
+                            <p class="error">{{ errors.weight }}</p>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="uploaded-images">
+            <h2>Uploaded Images</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Plate Text</th>
+                        <th>State</th>
+                        <th>Uploaded At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for image in uploaded_images %}
+                        <tr>
+                            <td><img src="{{ image.image.url }}" alt="Image" width="100"></td>
+                            <td>{{ image.plate_text }}</td>
+                            <td>{{ image.state }}</td>
+                            <td>{{ image.uploaded_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+        --white: #fff;
+        --black: #000;
+        --lightBlue: #17a;
+        --primaryColor: #333;
+        --secondaryColor: #555;
+        --accentColor: #17a;
+        --errorColor: #f00;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f4f4;
+        background-image: url('path_to_background_image.jpg'); /* Optional: add a background image for better effect */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container {
+        max-width: 1200px;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .form-box {
+        width: 48%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.2);  /* Glassmorphism Effect */
+        backdrop-filter: blur(10px); /* Blurring the background */
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .form-box h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: var(--primaryColor);
+        text-align: center;
+    }
+
+    .form-row {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: var(--secondaryColor);
+    }
+
+    input[type="number"], select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 2px solid var(--primaryColor);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--primaryColor);
+        font-size: 16px;
+        font-weight: 500;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+    }
+
+    input[type="number"]:focus, select:focus {
+        border-color: var(--accentColor);
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primaryColor);
+        color: var(--white);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: var(--secondaryColor);
+    }
+
+    .error {
+        color: var(--errorColor);
+        font-size: 14px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+
+    .uploaded-images {
+        margin-top: 40px;
+    }
+
+    .uploaded-images h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: var(--primaryColor);
+        text-align: center;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.3); /* Glassmorphism effect */
+        backdrop-filter: blur(8px);
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: var(--primaryColor);
+        color: var(--white);
+    }
+
+    .table td img {
+        max-width: 100px;
+        border-radius: 4px;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: rgba(240, 240, 240, 0.6);
+    }
+</style>
+{% endblock %}
